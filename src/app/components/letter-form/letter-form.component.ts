@@ -13,7 +13,9 @@ export class LetterFormComponent implements OnInit {
 
   @Input() letter: Letter;
 
-  constructor(private apiSrvice: ApiService) { }
+  constructor(private apiSrvice: ApiService) {
+    this.createMailID('tt');
+  }
 
   ngOnInit() {
     this.letter = {
@@ -65,14 +67,76 @@ export class LetterFormComponent implements OnInit {
   }
 
   getTestHash(length) {
+    //обязательно сделать так, чтобы первой цифрой не мог быть 0!!!
     let result = '';
-    const characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters  = '0123456789';
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
   }
+  /*
+Девятая цифра (9) — контрольная цифра, рассчитываемая по формуле[2];
+
+каждая из первых восьми цифр номера умножается соответственно на 8, 6, 4, 2, 3, 5, 9, 7;
+полученные значения суммируются;
+промежуточный результат делится на 11, чтобы получить остаток;
+остаток вычитается из 11;
+полученный конечный результат является контрольной цифрой, если она больше или равна 1, 
+но меньше или равен 9. Если конечный результат равен 10, то контрольная цифра равна 0; 
+если этот результат равен 11, то контрольная цифра равна 5.
+
+  */
+  // getChecksum(){
+    
+  //   return null;
+  // }
+  createMailID() {
+
+    let firstPath = "RZ";
+    let secondPath: string = this.getTestHash(8);
+    let thirdPath = getСhecksum() {
+      
+      const uniqueDepartureNumber: string = secondPath;
+      const factors = [8, 6, 4, 2, 3, 5, 9, 7];
+
+      let arrayNumbers = (uniqueDepartureNumber as string).split('');
+      let sum: number;  
+      for (let i = 0; i < arrayNumbers.length - 1 && i < factors.length; i++) { 
+        sum +=  +arrayNumbers[i] * factors[i];
+      }
+
+      console.log(arrayNumbers);
+
+      const checkDigit;
+      return check digit;
+    };
+
+    
+
+    thirdPath('11111');
+
+    let fourthPath = "BY";
+
+    const result = '' + firstPath + secondPath + thirdPath  + fourthPath;
+
+    return result;
+  }
+  // . Первые две латинские буквы (XX) обозначают тип почтового отправления:
+
+  // Возможно передавать только одну букву для описания типа отправления (R, L, V, C, E, U, Z) 
+  // в таком случае вторую букву от A до Z можно использовать для придания уникальности 
+  // или некой смысловой нагрузкни, например разбивка по регионам
+
+  // RA-RZ — регистрируемое отправление письменной корреспонденции (заказная карточка, письмо, бандероль, мелкий пакет (до 2 кг), заказной мешок «М» — международное отправление с большим объемом печатной продукции: бумагами, книгами, журналами);
+  // LA-LZ — отслеживаемое письмо, несколько подтипов; использование LZ требует двустороннего соглашения
+  // VA-VZ — письмо с объявленной ценностью;
+  // CA-CZ — международная посылка (более 2 кг);
+  // EA-EZ — экспресс-отправления (EMS от Express Mail Service);
+  // UA-UZ — нерегистрируемые и неотслеживаемые отправления, которые обязаны проходить таможенные процедуры;
+  // ZA-ZZ — SRM-отправление (от simplified registered mail), простой регистрируемый пакет.
+
 
   sendLetter() {
     this.apiSrvice.createLetter(this.letter)

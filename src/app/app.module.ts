@@ -10,13 +10,15 @@ import { CreateNewLetterComponent } from './components/create-new-letter/create-
 import { LetterFormComponent } from './components/letter-form/letter-form.component';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { ShowAllLettersComponent } from './components/show-all-letters/show-all-letters.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     CreateNewLetterComponent,
-    LetterFormComponent
+    LetterFormComponent,
+    ShowAllLettersComponent
   ],
   imports: [
     BrowserModule,
