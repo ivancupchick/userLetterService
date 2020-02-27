@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TypeOfTown as TownType, LetterStatus, Letter, ApiService, StreetType } from 'src/app/api.service';
+import * as jsPDF from 'jspdf';
 // import { take } from 'rxjs/operators';
 
 @Component({
@@ -14,7 +15,7 @@ export class LetterFormComponent implements OnInit {
   @Input() letter: Letter;
 
   constructor(private apiSrvice: ApiService) {
-    this.createMailID('tt');
+
   }
 
   ngOnInit() {
@@ -92,37 +93,37 @@ export class LetterFormComponent implements OnInit {
     
   //   return null;
   // }
-  createMailID() {
+  // createMailID() {
 
-    let firstPath = "RZ";
-    let secondPath: string = this.getTestHash(8);
-    let thirdPath = getСhecksum() {
+  //   let firstPath = "RZ";
+  //   let secondPath: string = this.getTestHash(8);
+  //   let thirdPath = getСhecksum() {
       
-      const uniqueDepartureNumber: string = secondPath;
-      const factors = [8, 6, 4, 2, 3, 5, 9, 7];
+  //     const uniqueDepartureNumber: string = secondPath;
+  //     const factors = [8, 6, 4, 2, 3, 5, 9, 7];
 
-      let arrayNumbers = (uniqueDepartureNumber as string).split('');
-      let sum: number;  
-      for (let i = 0; i < arrayNumbers.length - 1 && i < factors.length; i++) { 
-        sum +=  +arrayNumbers[i] * factors[i];
-      }
+  //     let arrayNumbers = (uniqueDepartureNumber as string).split('');
+  //     let sum: number;  
+  //     for (let i = 0; i < arrayNumbers.length - 1 && i < factors.length; i++) { 
+  //       sum +=  +arrayNumbers[i] * factors[i];
+  //     }
 
-      console.log(arrayNumbers);
+  //     console.log(arrayNumbers);
 
-      const checkDigit;
-      return check digit;
-    };
+  //     const checkDigit;
+  //     return check digit;
+  //   };
 
     
 
-    thirdPath('11111');
+  //   thirdPath('11111');
 
-    let fourthPath = "BY";
+  //   let fourthPath = "BY";
 
-    const result = '' + firstPath + secondPath + thirdPath  + fourthPath;
+  //   const result = '' + firstPath + secondPath + thirdPath  + fourthPath;
 
-    return result;
-  }
+  //   return result;
+  // }
   // . Первые две латинские буквы (XX) обозначают тип почтового отправления:
 
   // Возможно передавать только одну букву для описания типа отправления (R, L, V, C, E, U, Z) 
@@ -196,4 +197,78 @@ export class LetterFormComponent implements OnInit {
       dateAndTimeOfStartWay: (new Date()).getMilliseconds()
     };
   }
+//110*220 5/5 5/115 115/5 220/220 7 мм расстояние между строками конверта
+  downloadPDF(){
+
+    const doc = new jsPDF(
+      {
+        orientation: 'l',
+        unit: 'mm',
+        format: 'a4',
+        putOnlyUsedFonts:true
+       }
+    );
+
+
+    
+    // doc.text(this.letter.receiverAddress.komu.surname + " " + this.letter.receiverAddress.komu.otchestvo, 140, 72);
+    doc.line(5, 5, 225, 5);
+    doc.line(225, 5, 225, 115);
+    doc.line(225, 115, 5, 115);
+    doc.line(5, 115, 5, 5);
+
+    doc.text(this.letter.hash, 10, 10);
+    doc.text(this.letter.receiverAddress.komu.name.toString, 140, 65);
+
+    doc.save('First.pdf');
+  }
 }
+
+
+
+// this.letter = {
+//       id: null,
+//       hash: this.getTestHash(16),
+//       status: LetterStatus.withoutStatus,
+//       isMejdunarond: 'false',
+//       receiverAddress: {
+//         komu: {
+//           name: 'Иван',
+//           surname: 'Иванов',
+//           otchestvo: 'Иванович'
+//         },
+//         kuda: {
+//           streetName: 'Кальварийская',
+//           streetType: StreetType.ulica,
+//           numberOfFlat: '24',
+//           numberOfHouse: '3',
+//           numberOfKorpus: ''
+//         },
+//         index: '220100',
+//         nasPunktName: {
+//           oblast: 'Минская', // область
+//           region: '', // район
+//           townName: 'Минск', // город (название населеного пункта)
+//           typeOfTown: TownType.city
+//         }
+//       },
+//       otpravitelAddress: {
+//         otKogo: {
+//           name: 'Иван',
+//           surname: 'Иванов',
+//           otchestvo: 'Иванович'
+//         },
+//         adress: {
+//           streetName: 'Частная',
+//           streetType: StreetType.ulica,
+//           numberOfFlat: '',
+//           numberOfHouse: '24',
+//           numberOfKorpus: '',
+//           oblast: 'Гомельская', // область
+//           region: '', // район
+//           townName: 'Гомель', // город (название населеного пункта)
+//           typeOfTown: TownType.city
+//         }
+//       },
+//       dateAndTimeOfStartWay: (new Date()).getMilliseconds()
+//     };
