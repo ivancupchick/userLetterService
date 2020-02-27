@@ -7,7 +7,7 @@ const PHP_API_SERVER_MAMP = 'http://localhost:8888';
 
 export const environment = {
   production: false,
-  url: PHP_API_SERVER
+  url: PHP_API_SERVER_MAMP
 };
 
 /*
