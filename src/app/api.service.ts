@@ -192,6 +192,7 @@ export interface NasPunktName {
   region?: string; // район
   townName: string; // город (название населеного пункта)
   typeOfTown: TypeOfTown;
+  country: string;
 }
 
 export interface Letter { // please change this names and change these in form

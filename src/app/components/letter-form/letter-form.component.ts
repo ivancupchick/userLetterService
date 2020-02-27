@@ -3,14 +3,34 @@ import { TypeOfTown as TownType, LetterStatus, Letter, ApiService, StreetType } 
 import * as jsPDF from 'jspdf';
 // import { take } from 'rxjs/operators';
 
+interface ObjectOfEnums {
+  name: string;
+  enumType: string;
+}
+
 @Component({
   selector: 'app-letter-form',
   templateUrl: './letter-form.component.html',
   styleUrls: ['./letter-form.component.sass']
 })
 export class LetterFormComponent implements OnInit {
-  public enumTypeOfTown = TownType;
-  public enumStreetType = StreetType;
+  public enumTypeOfTown: ObjectOfEnums[] = [{
+    name: 'Город',
+    enumType: TownType.city
+  }, {
+    name: 'Деревня',
+    enumType: TownType.derevnya
+  }, {
+    name: 'Поселок',
+    enumType: TownType.posiolok
+  }];
+  public enumStreetType: ObjectOfEnums[] = [{
+    name: 'Проспект',
+    enumType: StreetType.prospect
+  }, {
+    name: 'Улица',
+    enumType: StreetType.ulica
+  }];
 
   @Input() letter: Letter;
 
@@ -39,17 +59,18 @@ export class LetterFormComponent implements OnInit {
         },
         index: '',
         nasPunktName: {
-          oblast: ' ', // область
-          region: ' ', // район
-          townName: ' ', // город (название населеного пункта)
-          typeOfTown: TownType.city
+          oblast: '', // область
+          region: '', // район
+          townName: '', // город (название населеного пункта)
+          typeOfTown: TownType.city,
+          country: ''
         }
       },
       otpravitelAddress: {
         otKogo: {
-          name: ' ',
-          surname: ' ',
-          otchestvo: ' '
+          name: '',
+          surname: '',
+          otchestvo: ''
         },
         adress: {
           streetName: '',
@@ -60,7 +81,8 @@ export class LetterFormComponent implements OnInit {
           oblast: '', // область
           region: '', // район
           townName: '', // город (название населеного пункта)
-          typeOfTown: TownType.city
+          typeOfTown: TownType.city,
+          country: ''
         }
       },
       dateAndTimeOfStartWay: (new Date()).getMilliseconds()
@@ -68,7 +90,7 @@ export class LetterFormComponent implements OnInit {
   }
 
   getTestHash(length) {
-    //обязательно сделать так, чтобы первой цифрой не мог быть 0!!!
+    // обязательно сделать так, чтобы первой цифрой не мог быть 0!!!
     let result = '';
     const characters  = '0123456789';
     const charactersLength = characters.length;
@@ -84,13 +106,13 @@ export class LetterFormComponent implements OnInit {
 полученные значения суммируются;
 промежуточный результат делится на 11, чтобы получить остаток;
 остаток вычитается из 11;
-полученный конечный результат является контрольной цифрой, если она больше или равна 1, 
-но меньше или равен 9. Если конечный результат равен 10, то контрольная цифра равна 0; 
+полученный конечный результат является контрольной цифрой, если она больше или равна 1,
+но меньше или равен 9. Если конечный результат равен 10, то контрольная цифра равна 0;
 если этот результат равен 11, то контрольная цифра равна 5.
 
   */
   // getChecksum(){
-    
+
   //   return null;
   // }
   // createMailID() {
@@ -98,13 +120,13 @@ export class LetterFormComponent implements OnInit {
   //   let firstPath = "RZ";
   //   let secondPath: string = this.getTestHash(8);
   //   let thirdPath = getСhecksum() {
-      
+
   //     const uniqueDepartureNumber: string = secondPath;
   //     const factors = [8, 6, 4, 2, 3, 5, 9, 7];
 
   //     let arrayNumbers = (uniqueDepartureNumber as string).split('');
-  //     let sum: number;  
-  //     for (let i = 0; i < arrayNumbers.length - 1 && i < factors.length; i++) { 
+  //     let sum: number;
+  //     for (let i = 0; i < arrayNumbers.length - 1 && i < factors.length; i++) {
   //       sum +=  +arrayNumbers[i] * factors[i];
   //     }
 
@@ -114,7 +136,7 @@ export class LetterFormComponent implements OnInit {
   //     return check digit;
   //   };
 
-    
+
 
   //   thirdPath('11111');
 
@@ -126,11 +148,13 @@ export class LetterFormComponent implements OnInit {
   // }
   // . Первые две латинские буквы (XX) обозначают тип почтового отправления:
 
-  // Возможно передавать только одну букву для описания типа отправления (R, L, V, C, E, U, Z) 
-  // в таком случае вторую букву от A до Z можно использовать для придания уникальности 
+  // Возможно передавать только одну букву для описания типа отправления (R, L, V, C, E, U, Z)
+  // в таком случае вторую букву от A до Z можно использовать для придания уникальности
   // или некой смысловой нагрузкни, например разбивка по регионам
 
-  // RA-RZ — регистрируемое отправление письменной корреспонденции (заказная карточка, письмо, бандероль, мелкий пакет (до 2 кг), заказной мешок «М» — международное отправление с большим объемом печатной продукции: бумагами, книгами, журналами);
+  // RA-RZ — регистрируемое отправление письменной корреспонденции (заказная карточка, письмо, бандероль,
+  // мелкий пакет (до 2 кг),
+  // заказной мешок «М» — международное отправление с большим объемом печатной продукции: бумагами, книгами, журналами);
   // LA-LZ — отслеживаемое письмо, несколько подтипов; использование LZ требует двустороннего соглашения
   // VA-VZ — письмо с объявленной ценностью;
   // CA-CZ — международная посылка (более 2 кг);
@@ -173,7 +197,8 @@ export class LetterFormComponent implements OnInit {
           oblast: 'Минская', // область
           region: '', // район
           townName: 'Минск', // город (название населеного пункта)
-          typeOfTown: TownType.city
+          typeOfTown: TownType.city,
+          country: ''
         }
       },
       otpravitelAddress: {
@@ -191,34 +216,36 @@ export class LetterFormComponent implements OnInit {
           oblast: 'Гомельская', // область
           region: '', // район
           townName: 'Гомель', // город (название населеного пункта)
-          typeOfTown: TownType.city
+          typeOfTown: TownType.city,
+          country: ''
         }
       },
       dateAndTimeOfStartWay: (new Date()).getMilliseconds()
     };
   }
-//110*220 5/5 5/115 115/5 220/220 7 мм расстояние между строками конверта
-  downloadPDF(){
+  // 110*220 5/5 5/115 115/5 220/220 7 мм расстояние между строками конверта
 
-    const doc = new jsPDF(
-      {
-        orientation: 'l',
-        unit: 'mm',
-        format: 'a4',
-        putOnlyUsedFonts:true
-       }
+  downloadPDF() {
+    const doc = new jsPDF({
+      orientation: 'l',
+      unit: 'mm',
+      format: 'a4',
+      putOnlyUsedFonts: true
+      }
     );
 
 
-    
+
     // doc.text(this.letter.receiverAddress.komu.surname + " " + this.letter.receiverAddress.komu.otchestvo, 140, 72);
     doc.line(5, 5, 225, 5);
     doc.line(225, 5, 225, 115);
     doc.line(225, 115, 5, 115);
     doc.line(5, 115, 5, 5);
 
-    doc.text(this.letter.hash, 10, 10);
-    doc.text(this.letter.receiverAddress.komu.name.toString, 140, 65);
+    doc.text("11111", 10, 10);
+    doc.text("лананалангалн", 20, 20);
+
+    console.log(this.letter.receiverAddress.komu.name.toString());
 
     doc.save('First.pdf');
   }

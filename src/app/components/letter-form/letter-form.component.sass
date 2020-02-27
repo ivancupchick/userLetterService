@@ -1,4 +1,45 @@
 .main-form
+  display: flex
+  flex-direction: column
+
+  &-row
+    width: 100%
+    height: 300px
+    display: flex
+    justify-content: flex-end
+
+    &:first-child
+      justify-content: flex-start
+
+    .block
+      width: 50%
+      height: 100%
+      display: flex
+      flex-direction: column
+      // justify-content: space-between
+
+
+      &-row + .block-row
+        margin-top: 5px
+
+      &-row
+        width: 100%
+        display: flex
+        justify-content: space-between
+
+        input.small-input
+          width: 20px
+
+
+
+
+
+
+
+
+
+
+
   .row
     display: flex
     flex-direction: column
