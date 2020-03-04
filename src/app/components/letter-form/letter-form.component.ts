@@ -32,6 +32,8 @@ export class LetterFormComponent implements OnInit {
     enumType: StreetType.ulica
   }];
 
+  pdfUrl: string;
+
   @Input() letter: Letter;
 
   constructor(private apiSrvice: ApiService) {
@@ -41,7 +43,7 @@ export class LetterFormComponent implements OnInit {
   ngOnInit() {
     this.letter = {
       id: null,
-      hash: this.getTestHash(16),
+      hash: this.getHash(16),
       status: LetterStatus.withoutStatus,
       isMejdunarond: '',
       receiverAddress: {
@@ -89,7 +91,7 @@ export class LetterFormComponent implements OnInit {
     };
   }
 
-  getTestHash(length) {
+  getHash(length) {
     // обязательно сделать так, чтобы первой цифрой не мог быть 0!!!
     let result = '';
     const characters  = '0123456789';
@@ -169,14 +171,16 @@ export class LetterFormComponent implements OnInit {
       //   take(1)
       // )
       .subscribe((res) => {
-        console.log(res);
-      });
+          alert('Ваше письмо сгенерировано!');
+
+          this.pdfUrl = res;
+        }, error => console.log(error));
   }
 
   sendTestData() {
     this.letter = {
       id: null,
-      hash: this.getTestHash(16),
+      hash: this.getHash(8),
       status: LetterStatus.withoutStatus,
       isMejdunarond: 'false',
       receiverAddress: {
@@ -223,32 +227,38 @@ export class LetterFormComponent implements OnInit {
       dateAndTimeOfStartWay: (new Date()).getMilliseconds()
     };
   }
+
+  getPdf() {
+    window.open(this.pdfUrl, '_blank');
+  }
+
   // 110*220 5/5 5/115 115/5 220/220 7 мм расстояние между строками конверта
 
-  downloadPDF() {
-    const doc = new jsPDF({
-      orientation: 'l',
-      unit: 'mm',
-      format: 'a4',
-      putOnlyUsedFonts: true
-      }
-    );
+
+  // downloadPDF() {
+  //   const doc = new jsPDF({
+  //     orientation: 'l',
+  //     unit: 'mm',
+  //     format: 'a4',
+  //     putOnlyUsedFonts: true
+  //     }
+  //   );
 
 
 
-    // doc.text(this.letter.receiverAddress.komu.surname + " " + this.letter.receiverAddress.komu.otchestvo, 140, 72);
-    doc.line(5, 5, 225, 5);
-    doc.line(225, 5, 225, 115);
-    doc.line(225, 115, 5, 115);
-    doc.line(5, 115, 5, 5);
+  //   // doc.text(this.letter.receiverAddress.komu.surname + " " + this.letter.receiverAddress.komu.otchestvo, 140, 72);
+  //   doc.line(5, 5, 225, 5);
+  //   doc.line(225, 5, 225, 115);
+  //   doc.line(225, 115, 5, 115);
+  //   doc.line(5, 115, 5, 5);
 
-    doc.text("11111", 10, 10);
-    doc.text("лананалангалн", 20, 20);
+  //   doc.text('11111', 10, 10);
+  //   doc.text('лананалангалн', 20, 20);
 
-    console.log(this.letter.receiverAddress.komu.name.toString());
+  //   console.log(this.letter.receiverAddress.komu.name.toString());
 
-    doc.save('First.pdf');
-  }
+  //   doc.save('First.pdf');
+  // }
 }
 
 

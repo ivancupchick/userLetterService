@@ -258,6 +258,6 @@
   </div>
 
   <div class="row">
-    <button (click)="downloadPDF()">Скачать PDF</button>
+    <button [disabled]="!pdfUrl" (click)="getPdf()">Получить пимьсо</button>
   </div>
 </div>

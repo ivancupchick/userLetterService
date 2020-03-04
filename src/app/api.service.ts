@@ -251,7 +251,7 @@ export class ApiService {
   }
 
   createLetter(letter: Letter) {
-    return this.httpClient.post<Letter>(`${environment.url}/api/createLetter.php`, letter);
+    return this.httpClient.post<string>(`${environment.url}/api/createLetter.php`, letter);
   }
 
   readLetters(): Observable<Letter[]> {
