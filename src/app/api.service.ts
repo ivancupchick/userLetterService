@@ -151,14 +151,15 @@ export enum SpecialMarkForZakazLetter {
 }
 
 export enum TypeOfTown { // add new
-  city = 'city',
-  derevnya = 'derevnya',
-  posiolok = 'posiolok'
+  city = 'г.',
+  derevnya = 'д.',
+  posiolok = 'п.',
+  posiolokTypeOfGorod = 'пгт'
 }
 
 export enum StreetType {
-  prospect = 'prospect',
-  ulica = 'ulica'
+  prospect = 'пр-т',
+  ulica = 'ул.'
 }
 
 export enum SpecialMarkForValuenceLetter {
@@ -256,6 +257,4 @@ export class ApiService {
   readLetters(): Observable<Letter[]> {
     return this.httpClient.get<Letter[]>(`${environment.url}/api/readLetter.php`);
   }
-
-
 }
