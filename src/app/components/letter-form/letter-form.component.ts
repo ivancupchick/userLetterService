@@ -48,6 +48,8 @@ export class LetterFormComponent implements OnInit {
       specMarks: '',
       isMejdunarond: '',
       letterType: LetterType.simple,
+      letterWithAnnouncedValue: 'false',
+      letterWithPrice: 'false',
       receiverAddress: {
         komu: {
           name: '',
@@ -185,6 +187,8 @@ export class LetterFormComponent implements OnInit {
       status: LetterStatus.withoutStatus,
       isMejdunarond: 'false',
       letterType: LetterType.simple,
+      letterWithAnnouncedValue: 'false',
+      letterWithPrice: 'false',
       specMarks: '',
       receiverAddress: {
         komu: {

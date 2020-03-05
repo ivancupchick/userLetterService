@@ -197,7 +197,7 @@ export interface NasPunktName {
   index: string;
 }
 
-export interface SimpleLeterInterface {
+export interface Letter {
   id: number;
   hash: string;
   status: LetterStatus;
@@ -214,21 +214,13 @@ export interface SimpleLeterInterface {
   };
 
   // typeOfLetter: TypeOfLetter; // вид отправления
-  // letterType?: LetterType; // if typeOfLetter === TypeOfLetter.pismo
+  letterType: LetterType; // if typeOfLetter === TypeOfLetter.pismo
   specMarks: string; // string[].join(',') // if typeOfLetter === LetterType.zakaz
-  // letterWithAnnouncedValue: 'true' | 'false';
-  // letterWithPrice: 'true' | 'false';
+  letterWithAnnouncedValue: 'true' | 'false';
+  letterWithPrice: 'true' | 'false';
 
   dateAndTimeOfStartWay: number;
 }
-
-export type Letter = SimpleLeterInterface & ({
-    letterType: LetterType.simple
-  } | {
-    letterType: LetterType.zakaz,
-    letterWithAnnouncedValue?: 'true' | 'false';
-    letterWithPrice?: 'true' | 'false';
-});
 
 @Injectable({
   providedIn: 'root'
