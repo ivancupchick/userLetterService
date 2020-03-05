@@ -70,38 +70,38 @@
         <input placeholder="Отчество" type="text" name="komuOtchestvo" id="komuOtchestvo" [(ngModel)]="letter.receiverAddress.komu.otchestvo" />
       </div>
       <div class="block-row">
-        <select [(ngModel)]="letter.receiverAddress.kuda.streetType">
+        <select [(ngModel)]="letter.receiverAddress.adress.streetType">
           <option [value]=""></option>
           <option *ngFor="let item of enumStreetType" [value]="item.enumType">{{item.name}}</option>
         </select>
-        <input placeholder="Название улицы" type="text" name="streetName" id="streetName" [(ngModel)]="letter.receiverAddress.kuda.streetName" />
+        <input placeholder="Название улицы" type="text" name="streetName" id="streetName" [(ngModel)]="letter.receiverAddress.adress.streetName" />
         <span>д.</span>
-        <input class="small-input" placeholder="№" type="text" name="numberOfHouse" id="numberOfHouse" [(ngModel)]="letter.receiverAddress.kuda.numberOfHouse" />
+        <input class="small-input" placeholder="№" type="text" name="numberOfHouse" id="numberOfHouse" [(ngModel)]="letter.receiverAddress.adress.numberOfHouse" />
         <span>к.</span>
-        <input class="small-input" placeholder="№" type="text" name="numberOfKorpus" id="numberOfKorpus" [(ngModel)]="letter.receiverAddress.kuda.numberOfKorpus" />
+        <input class="small-input" placeholder="№" type="text" name="numberOfKorpus" id="numberOfKorpus" [(ngModel)]="letter.receiverAddress.adress.numberOfKorpus" />
         <span>кв.</span>
-        <input class="small-input" placeholder="№" type="text" name="numberOfFlat" id="numberOfFlat" [(ngModel)]="letter.receiverAddress.kuda.numberOfFlat" />
+        <input class="small-input" placeholder="№" type="text" name="numberOfFlat" id="numberOfFlat" [(ngModel)]="letter.receiverAddress.adress.numberOfFlat" />
       </div>
       <span>н/п - населенный пункт</span>
       <div class="block-row">
-        <input placeholder="Индекс" type="text" name="index" id="index" [(ngModel)]="letter.receiverAddress.index" />
-        <select [(ngModel)]="letter.receiverAddress.nasPunktName.typeOfTown">
+        <input placeholder="Индекс" type="text" name="index" id="index" [(ngModel)]="letter.receiverAddress.adress.index" />
+        <select [(ngModel)]="letter.receiverAddress.adress.typeOfTown">
           <option [value]=""></option>
           <option *ngFor="let item of enumTypeOfTown" [value]="item.enumType">{{item.name}}</option>
         </select>
-        <input placeholder="Название н/п" type="text" name="townName" id="townName" [(ngModel)]="letter.receiverAddress.nasPunktName.townName" />
+        <input placeholder="Название н/п" type="text" name="townName" id="townName" [(ngModel)]="letter.receiverAddress.adress.townName" />
       </div>
       <div class="block-row">
         <span>район</span>
-        <input placeholder="Название района" type="text" name="region" id="region" [(ngModel)]="letter.receiverAddress.nasPunktName.region" />
+        <input placeholder="Название района" type="text" name="region" id="region" [(ngModel)]="letter.receiverAddress.adress.region" />
       </div>
       <div class="block-row">
         <span>обл.</span>
-        <input placeholder="Название области" type="text" name="oblast" id="oblast" [(ngModel)]="letter.receiverAddress.nasPunktName.oblast" />
+        <input placeholder="Название области" type="text" name="oblast" id="oblast" [(ngModel)]="letter.receiverAddress.adress.oblast" />
       </div>
       <div *ngIf="letter.isMejdunarond" class="block-row">
         <span>страна</span>
-        <input placeholder="Название страны" type="text" [(ngModel)]="letter.receiverAddress.nasPunktName.country" />
+        <input placeholder="Название страны" type="text" [(ngModel)]="letter.receiverAddress.adress.country" />
       </div>
     </div>
   </div>
@@ -128,27 +128,27 @@
     <div class="row-sub">
       <div class="input-row">
         <label for="streetType">Тип (улица, проспеки и т.д.)</label>
-        <input type="text" name="streetType" id="streetType" [(ngModel)]="letter.receiverAddress.kuda.streetType">
+        <input type="text" name="streetType" id="streetType" [(ngModel)]="letter.receiverAddress.adress.streetType">
       </div>
 
       <div class="input-row">
         <label for="streetName">Название улицы</label>
-        <input type="text" name="streetName" id="streetName" [(ngModel)]="letter.receiverAddress.kuda.streetName">
+        <input type="text" name="streetName" id="streetName" [(ngModel)]="letter.receiverAddress.adress.streetName">
       </div>
 
       <div class="input-row">
         <label for="numberOfHouse">Номер дома</label>
-        <input type="text" name="numberOfHouse" id="numberOfHouse" [(ngModel)]="letter.receiverAddress.kuda.numberOfHouse">
+        <input type="text" name="numberOfHouse" id="numberOfHouse" [(ngModel)]="letter.receiverAddress.adress.numberOfHouse">
       </div>
 
       <div class="input-row">
         <label for="numberOfKorpus">Номер корпуса</label>
-        <input type="text" name="numberOfKorpus" id="numberOfKorpus" [(ngModel)]="letter.receiverAddress.kuda.numberOfKorpus">
+        <input type="text" name="numberOfKorpus" id="numberOfKorpus" [(ngModel)]="letter.receiverAddress.adress.numberOfKorpus">
       </div>
 
       <div class="input-row">
         <label for="numberOfFlat">Номер квартиры</label>
-        <input type="text" name="numberOfFlat" id="numberOfFlat" [(ngModel)]="letter.receiverAddress.kuda.numberOfFlat">
+        <input type="text" name="numberOfFlat" id="numberOfFlat" [(ngModel)]="letter.receiverAddress.adress.numberOfFlat">
       </div>
     </div>
 
@@ -159,22 +159,22 @@
       <h4>Название населенного пункта</h4>
       <div class="input-row">
         <label for="oblast">Обасть</label>
-        <input type="text" name="oblast" id="oblast" [(ngModel)]="letter.receiverAddress.nasPunktName.oblast">
+        <input type="text" name="oblast" id="oblast" [(ngModel)]="letter.receiverAddress.adress.oblast">
       </div>
 
       <div class="input-row">
         <label for="region">Район</label>
-        <input type="text" name="region" id="region" [(ngModel)]="letter.receiverAddress.nasPunktName.region">
+        <input type="text" name="region" id="region" [(ngModel)]="letter.receiverAddress.adress.region">
       </div>
 
       <div class="input-row">
         <label for="typeOfTown">Тип</label>
-        <input type="text" name="typeOfTown" id="typeOfTown" [(ngModel)]="letter.receiverAddress.nasPunktName.typeOfTown">
+        <input type="text" name="typeOfTown" id="typeOfTown" [(ngModel)]="letter.receiverAddress.adress.typeOfTown">
       </div>
 
       <div class="input-row">
         <label for="townName">Название нас. пункта</label>
-        <input type="text" name="townName" id="townName" [(ngModel)]="letter.receiverAddress.nasPunktName.townName">
+        <input type="text" name="townName" id="townName" [(ngModel)]="letter.receiverAddress.adress.townName">
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TypeOfTown as TownType, LetterStatus, Letter, ApiService, StreetType } from 'src/app/api.service';
+import { TypeOfTown as TownType, LetterStatus, Letter, ApiService, StreetType, LetterType } from 'src/app/api.service';
 import * as jsPDF from 'jspdf';
 // import { take } from 'rxjs/operators';
 
@@ -45,27 +45,27 @@ export class LetterFormComponent implements OnInit {
       id: null,
       hash: this.getHash(16),
       status: LetterStatus.withoutStatus,
+      specMarks: '',
       isMejdunarond: '',
+      letterType: LetterType.simple,
       receiverAddress: {
         komu: {
           name: '',
           surname: '',
           otchestvo: ''
         },
-        kuda: {
-          streetName: '',
-          streetType: StreetType.ulica,
-          numberOfFlat: '',
-          numberOfHouse: '',
-          numberOfKorpus: ''
-        },
-        index: '',
-        nasPunktName: {
+        adress: {
           oblast: '', // область
           region: '', // район
           townName: '', // город (название населеного пункта)
           typeOfTown: TownType.city,
-          country: ''
+          country: '',
+          streetName: '',
+          streetType: StreetType.ulica,
+          numberOfFlat: '',
+          numberOfHouse: '',
+          numberOfKorpus: '',
+          index: ''
         }
       },
       otpravitelAddress: {
@@ -84,7 +84,8 @@ export class LetterFormComponent implements OnInit {
           region: '', // район
           townName: '', // город (название населеного пункта)
           typeOfTown: TownType.city,
-          country: ''
+          country: '',
+          index: ''
         }
       },
       dateAndTimeOfStartWay: (new Date()).getMilliseconds()
@@ -183,26 +184,26 @@ export class LetterFormComponent implements OnInit {
       hash: this.getHash(8),
       status: LetterStatus.withoutStatus,
       isMejdunarond: 'false',
+      letterType: LetterType.simple,
+      specMarks: '',
       receiverAddress: {
         komu: {
           name: 'Иван',
           surname: 'Иванов',
           otchestvo: 'Иванович'
         },
-        kuda: {
-          streetName: 'Кальварийская',
-          streetType: StreetType.ulica,
-          numberOfFlat: '24',
-          numberOfHouse: '3',
-          numberOfKorpus: ''
-        },
-        index: '220100',
-        nasPunktName: {
+        adress: {
           oblast: 'Минская', // область
           region: '', // район
           townName: 'Минск', // город (название населеного пункта)
           typeOfTown: TownType.city,
-          country: ''
+          country: '',
+          streetName: 'Кальварийская',
+          streetType: StreetType.ulica,
+          numberOfFlat: '24',
+          numberOfHouse: '3',
+          numberOfKorpus: '',
+          index: '220100',
         }
       },
       otpravitelAddress: {
@@ -221,7 +222,8 @@ export class LetterFormComponent implements OnInit {
           region: '', // район
           townName: 'Гомель', // город (название населеного пункта)
           typeOfTown: TownType.city,
-          country: ''
+          country: '',
+          index: ''
         }
       },
       dateAndTimeOfStartWay: (new Date()).getMilliseconds()

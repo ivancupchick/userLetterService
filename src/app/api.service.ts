@@ -115,7 +115,7 @@ export enum LetterType {
   Заказное – бланк уведомления вручается отправителю под расписку.
   Электронное – информация о вручении отправления поступает отправителю на адрес электронной почты.
   */
- letterWithAnnouncedValue = 'letterWithAnnouncedValue'
+  // letterWithAnnouncedValue = 'letterWithAnnouncedValue'
   /*
   Характер вложения: ценные бумаги или документы (документы, удостоверяющие личность,
   свидетельства о регистрации актов гражданского состояния, водительские удостоверения, военные
@@ -194,38 +194,41 @@ export interface NasPunktName {
   townName: string; // город (название населеного пункта)
   typeOfTown: TypeOfTown;
   country: string;
+  index: string;
 }
 
-export interface Letter { // please change this names and change these in form
+export interface SimpleLeterInterface {
   id: number;
-  hash: string; // progs
+  hash: string;
   status: LetterStatus;
-  isMejdunarond: string; // bool
+  isMejdunarond: string;
 
   receiverAddress: {
     komu: ManName;
-    kuda: Address;
-    index: string;
-    nasPunktName: NasPunktName;
+    adress: Address & NasPunktName
   };
 
   otpravitelAddress: {
     otKogo: ManName,
-    adress: Address & NasPunktName // may convert to Address and NasPunktName;
+    adress: Address & NasPunktName
   };
 
   // typeOfLetter: TypeOfLetter; // вид отправления
   // letterType?: LetterType; // if typeOfLetter === TypeOfLetter.pismo
-  // specialMarkForZakazLetter?: SpecialMarkForZakazLetter; // if typeOfLetter === TypeOfLetter.pismo && letterType === LetterType.zakaz
-  // specialMarkForValuenceLetter: SpecialMarkForValuenceLetter;
-  // if typeOfLetter === TypeOfLetter.pismo && letterType === LetterType.letterWithAnnouncedValue
+  specMarks: string; // string[].join(',') // if typeOfLetter === LetterType.zakaz
+  // letterWithAnnouncedValue: 'true' | 'false';
+  // letterWithPrice: 'true' | 'false';
 
   dateAndTimeOfStartWay: number;
-
-  /*
-  необходимо дописать случаи невозрвата (сроки хранения ожидается что они будут на сервере)
-  */
 }
+
+export type Letter = SimpleLeterInterface & ({
+    letterType: LetterType.simple
+  } | {
+    letterType: LetterType.zakaz,
+    letterWithAnnouncedValue?: 'true' | 'false';
+    letterWithPrice?: 'true' | 'false';
+});
 
 @Injectable({
   providedIn: 'root'
