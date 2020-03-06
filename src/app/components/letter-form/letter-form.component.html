@@ -9,9 +9,9 @@
       </div>
       <div class="block-row">
         <span>Информация об отправителе</span>
+        <input placeholder="Фамилия" type="text" name="otKogoSurname" id="otKogoSurname" [(ngModel)]="letter.otpravitelAddress.otKogo.surname" />
       </div>
       <div class="block-row">
-        <input placeholder="Фамилия" type="text" name="otKogoSurname" id="otKogoSurname" [(ngModel)]="letter.otpravitelAddress.otKogo.surname" />
         <input placeholder="Имя" type="text" name="otKogoName" id="otKogoName" [(ngModel)]="letter.otpravitelAddress.otKogo.name" />
         <input placeholder="Отчество" type="text" name="otKogoOtchestvo" id="otKogoOtchestvo" [(ngModel)]="letter.otpravitelAddress.otKogo.otchestvo" />
       </div>
@@ -33,7 +33,7 @@
         <!-- may need to add -->
         <!-- <input placeholder="Индекс" /> -->
         <select [(ngModel)]="letter.otpravitelAddress.adress.typeOfTown">
-          <option [value]=""></option>
+          <!-- <option [value]=""></option> -->
           <option *ngFor="let item of enumTypeOfTown" [value]="item.enumType">{{item.name}}</option>
         </select>
         <input placeholder="Название н/п" type="text" name="townName" id="townName" [(ngModel)]="letter.otpravitelAddress.adress.townName" />
@@ -86,7 +86,7 @@
       <div class="block-row">
         <input placeholder="Индекс" type="text" name="index" id="index" [(ngModel)]="letter.receiverAddress.adress.index" />
         <select [(ngModel)]="letter.receiverAddress.adress.typeOfTown">
-          <option [value]=""></option>
+          <!-- <option [value]=""></option> -->
           <option *ngFor="let item of enumTypeOfTown" [value]="item.enumType">{{item.name}}</option>
         </select>
         <input placeholder="Название н/п" type="text" name="townName" id="townName" [(ngModel)]="letter.receiverAddress.adress.townName" />
@@ -251,13 +251,15 @@
   <div class="row">
     <button (click)="sendLetter()">Отправить</button>
     <!-- <select name="typeOfLetter" id="typeOfLetter" [(ng)]></select> -->
-  </div>
-
-  <div class="row">
+    <button [disabled]="!pdfUrl" (click)="getPdf()">Получить пимьсо</button>
     <button (click)="sendTestData()">Заполнить форму тестовыми данными</button>
   </div>
 
-  <div class="row">
+  <!-- <div class="row">
+    <button (click)="sendTestData()">Заполнить форму тестовыми данными</button>
+  </div> -->
+
+  <!-- <div class="row">
     <button [disabled]="!pdfUrl" (click)="getPdf()">Получить пимьсо</button>
-  </div>
+  </div> -->
 </div>
