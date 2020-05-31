@@ -11,6 +11,7 @@ import { LetterFormComponent } from './components/letter-form/letter-form.compon
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ShowAllLettersComponent } from './components/show-all-letters/show-all-letters.component';
+import { TrackerComponent } from './components/tracker/tracker.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ShowAllLettersComponent } from './components/show-all-letters/show-all-
     DashboardComponent,
     CreateNewLetterComponent,
     LetterFormComponent,
-    ShowAllLettersComponent
+    ShowAllLettersComponent,
+    TrackerComponent
   ],
   imports: [
     BrowserModule,

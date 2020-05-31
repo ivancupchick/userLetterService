@@ -216,10 +216,20 @@ export interface Letter {
   // typeOfLetter: TypeOfLetter; // вид отправления
   letterType: LetterType; // if typeOfLetter === TypeOfLetter.pismo
   specMarks: string; // string[].join(',') // if typeOfLetter === LetterType.zakaz
-  letterWithAnnouncedValue: 'true' | 'false';
-  letterWithPrice: 'true' | 'false';
+  letterWithAnnouncedValue: string; // 'true' | 'false';
+  letterWithPrice: string; // 'true' | 'false';
 
   dateAndTimeOfStartWay: number;
+
+  history: string;
+}
+
+export interface LetterHistory {
+  wasStatus: string;
+  updatedStatus: string;
+  dateOfUpdate: string;
+  uid: string;
+  officeName: string;
 }
 
 @Injectable({
@@ -246,10 +256,14 @@ export class ApiService {
   }
 
   createLetter(letter: Letter) {
-    return this.httpClient.post<string>(`${environment.url}/api/createLetter.php`, letter);
+    return this.httpClient.post<{ url: string, hash: string}>(`${environment.url}/api/createLetter.php`, letter);
   }
 
   readLetters(): Observable<Letter[]> {
     return this.httpClient.get<Letter[]>(`${environment.url}/api/readLetter.php`);
+  }
+
+  readLetterHistory(hash): Observable<{ history: string }[]> {
+    return this.httpClient.get<{ history: string }[]>(`${environment.url}/api/readLetterHistory.php?hash=${hash}`);
   }
 }

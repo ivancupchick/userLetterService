@@ -31,6 +31,14 @@ export class LetterFormComponent implements OnInit {
     name: 'Улица',
     enumType: StreetType.ulica
   }];
+  letterType = LetterType;
+  public enumLetterType = [{
+    name: 'Простое',
+    enumType: LetterType.simple
+  }, {
+    name: 'Заказное',
+    enumType: LetterType.zakaz
+  }];
 
   pdfUrl: string;
 
@@ -46,10 +54,10 @@ export class LetterFormComponent implements OnInit {
       hash: this.getHash(16),
       status: LetterStatus.withoutStatus,
       specMarks: '',
-      isMejdunarond: '',
+      isMejdunarond: null,
       letterType: LetterType.simple,
-      letterWithAnnouncedValue: 'false',
-      letterWithPrice: 'false',
+      letterWithAnnouncedValue: null,
+      letterWithPrice: null,
       receiverAddress: {
         komu: {
           name: '',
@@ -90,18 +98,32 @@ export class LetterFormComponent implements OnInit {
           index: ''
         }
       },
-      dateAndTimeOfStartWay: (new Date()).getMilliseconds()
+      dateAndTimeOfStartWay: (new Date()).getMilliseconds(),
+      history: ''
     };
   }
 
   getHash(length) {
     // обязательно сделать так, чтобы первой цифрой не мог быть 0!!!
     let result = '';
-    const characters  = '0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+
+    if (!this.letter) {
+      return '';
     }
+
+    if (!!this.letter.letterWithPrice) {
+      result = 'VV';
+    } else if (this.letter.letterType === LetterType.zakaz) {
+      result = 'RR';
+    } else {
+      result = 'UU';
+    }
+
+    // const characters  = '0123456789';
+    // const charactersLength = characters.length;
+    // for (let i = 0; i < length; i++) {
+    //    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    // }
     return result;
   }
   /*
@@ -169,6 +191,12 @@ export class LetterFormComponent implements OnInit {
 
 
   sendLetter() {
+    this.letter.hash = this.getHash(8);
+
+    this.letter.isMejdunarond = `${!!this.letter.isMejdunarond}`;
+    this.letter.letterWithPrice = `${!!this.letter.letterWithPrice}`;
+    this.letter.letterWithAnnouncedValue = `${!!this.letter.letterWithAnnouncedValue}`;
+
     this.apiSrvice.createLetter(this.letter)
       // .pipe(
       //   take(1)
@@ -176,7 +204,8 @@ export class LetterFormComponent implements OnInit {
       .subscribe((res) => {
           alert('Ваше письмо сгенерировано!');
 
-          this.pdfUrl = res;
+          this.pdfUrl = res.url;
+          alert(res.hash);
         }, error => console.log(error));
   }
 
@@ -185,10 +214,10 @@ export class LetterFormComponent implements OnInit {
       id: null,
       hash: this.getHash(8),
       status: LetterStatus.withoutStatus,
-      isMejdunarond: 'false',
+      isMejdunarond: false as any,
       letterType: LetterType.simple,
-      letterWithAnnouncedValue: 'false',
-      letterWithPrice: 'false',
+      letterWithAnnouncedValue: false as any,
+      letterWithPrice: false as any,
       specMarks: '',
       receiverAddress: {
         komu: {
@@ -230,7 +259,8 @@ export class LetterFormComponent implements OnInit {
           index: ''
         }
       },
-      dateAndTimeOfStartWay: (new Date()).getMilliseconds()
+      dateAndTimeOfStartWay: (new Date()).getMilliseconds(),
+      history: ''
     };
   }
 
